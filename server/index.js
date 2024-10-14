@@ -46,11 +46,29 @@ app.patch("/api/liquors/:id", (req, res) => {
     });
 });
 
-// GET route to fetch sales
+// GET route to fetch sales with pagination
 app.get("/api/sales", (req, res) => {
-  Sale.find().populate("liquor") // Populate liquor details
+  const page = parseInt(req.query.page) || 1; // Get the page number from query
+  const limit = parseInt(req.query.limit) || 10; // Get the limit of items per page
+
+  const start = Date.now(); // Start time for logging
+
+  Sale.find()
+    .populate("liquor") // Populate liquor details
+    .skip((page - 1) * limit) // Skip documents for pagination
+    .limit(limit) // Limit documents for pagination
     .then((sales) => {
-      res.status(200).json(sales);
+      const totalSales = Sale.countDocuments(); // Get total sales for pagination
+      console.log(`Query time: ${Date.now() - start}ms`); // Log the duration
+      return totalSales;
+    })
+    .then((totalSales) => {
+      res.status(200).json({
+        totalSales,
+        totalPages: Math.ceil(totalSales / limit),
+        currentPage: page,
+        sales,
+      });
     })
     .catch((error) => {
       console.error("Error fetching sales:", error);
@@ -111,4 +129,3 @@ if (process.env.NODE_ENV !== "production") {
   // Export the app for Vercel
   module.exports = app;
 }
-

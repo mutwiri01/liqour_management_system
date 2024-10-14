@@ -48,7 +48,7 @@ app.patch("/api/liquors/:id", async (req, res) => {
 // GET route to fetch sales
 app.get("/api/sales", async (req, res) => {
   try {
-    const sales = await Sale.find().populate("liquor"); // Populate liquor details
+    const sales = await Sale.find(); // Populate liquor details
     res.status(200).json(sales);
   } catch (error) {
     console.error("Error fetching sales:", error);

@@ -24,7 +24,7 @@ function Navbar() {
         </li>
         <li>
           <Link to="/inventory">
-            <FontAwesomeIcon icon={faList} /> View Inventory
+            <FontAwesomeIcon icon={faList} /> Sales Inventory
           </Link>
         </li>
       </ul>

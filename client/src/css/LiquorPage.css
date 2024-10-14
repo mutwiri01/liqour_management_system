@@ -1,0 +1,90 @@
+/* src/css/LiquorPage.css */
+.liquor-page {
+    padding: 2rem; /* Padding around the page */
+    background-color: #f9f9f9; /* Light background for the page */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  h1,
+  h2 {
+    margin-bottom: 1rem; /* Space below headings */
+  }
+  
+  .add-liquor-form {
+    display: flex; /* Use flexbox for the form */
+    flex-direction: column; /* Stack form elements vertically */
+    margin-bottom: 2rem; /* Space below the form */
+  }
+  
+  .add-liquor-form input {
+    padding: 0.5rem; /* Padding for input fields */
+    margin-bottom: 1rem; /* Space between input fields */
+    border: 1px solid #ccc; /* Light border */
+    border-radius: 5px; /* Round input corners */
+  }
+  
+  .liquor-list {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+  }
+  
+  .liquor-item {
+    display: flex; /* Use flexbox for liquor items */
+    align-items: center; /* Center items vertically */
+    margin-bottom: 1rem; /* Space between liquor items */
+    background-color: #fff; /* White background for liquor items */
+    padding: 1rem; /* Padding around liquor items */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .liquor-image {
+    width: 80px; /* Fixed size for images */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 1rem; /* Space between image and details */
+  }
+  
+  .liquor-details {
+    flex-grow: 1; /* Allow details to grow and fill space */
+  }
+  
+  .liquor-details h3 {
+    margin: 0; /* Remove default margin */
+  }
+  
+  .quantity-update {
+    display: flex; /* Align label and input */
+    align-items: center; /* Center vertically */
+    margin-bottom: 10px; /* Space below the quantity input */
+  }
+  
+  .quantity-input {
+    width: 60px; /* Adjust the width of the input */
+    margin-left: 10px; /* Space between label and input */
+  }
+  
+  button {
+    background-color: lightblue; /* Button background color */
+    color: #000; /* Button text color */
+    padding: 0.5rem; /* Padding for the button */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Round the button corners */
+    cursor: pointer; /* Change cursor on hover */
+    margin-left: 10px; /* Space between quantity input and remove button */
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    color: white; /* Change text color on hover */
+  }
+  
+  .message {
+    background-color: #dff0d8; /* Light green for success */
+    color: #3c763d; /* Dark green text */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #d6e9c6;
+    border-radius: 5px;
+  }
+  

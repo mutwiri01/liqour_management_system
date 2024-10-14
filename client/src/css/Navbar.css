@@ -1,0 +1,47 @@
+/* src/components/Navbar.css */
+.navbar {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Center items vertically */
+  background-color: lightblue; /* Light blue background */
+  padding: 1rem; /* Add padding */
+}
+
+.navbar-logo {
+  display: flex; /* Use flexbox for the logo and title */
+  align-items: center; /* Center logo and title vertically */
+  margin-right: auto; /* Push links to the right */
+}
+
+.logo {
+  width: 100px; /* Increased width for the logo */
+  height: auto; /* Maintain aspect ratio */
+  margin-right: 15px; /* Space between logo and title */
+}
+
+.navbar-title {
+  font-size: 2.5rem; /* Increase font size for better visibility */
+  color: black; /* Set title color to black for better contrast */
+  margin: 0; /* Remove default margin */
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7); /* Add a subtle shadow for better visibility */
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.navbar-links {
+  list-style-type: none; /* Remove list bullets */
+  padding: 0; /* Remove padding */
+  display: flex; /* Use flexbox to align links horizontally */
+}
+
+.navbar-links li {
+  margin-left: 30px; /* Increased space between links */
+}
+
+.navbar-links li a {
+  text-decoration: none; /* Remove underline */
+  color: #000; /* Link color */
+  font-weight: bold; /* Make link bold */
+}
+
+.navbar-links li a:hover {
+  text-decoration: underline; /* Underline on hover */
+}

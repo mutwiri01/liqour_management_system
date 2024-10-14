@@ -1,0 +1,132 @@
+.dashboard {
+  text-align: center;
+  padding: 2rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.dashboard-header {
+  position: relative;
+  margin-bottom: 2rem;
+  
+}
+
+.dashboard-image {
+  width: 100%;
+  height: 300px; /* Adjusted height */
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 3rem;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.theme-toggle {
+  margin: 1rem 0;
+}
+
+.stats {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  color: #646cff;
+}
+
+.success-message {
+  color: #28a745; /* Green color for success messages */
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.inventory-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 2rem 0;
+}
+
+.inventory-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  transition: box-shadow 0.3s ease;
+}
+
+.inventory-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.liquor-info {
+  display: flex;
+  align-items: center;
+}
+
+.liquor-icon {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.sell-button {
+  background-color: #646cff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sell-button:hover {
+  background-color: #535bf2;
+}
+
+/* Dark mode styles */
+.dark {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+}
+
+.dark .inventory-item {
+  background-color: #2a2a2a;
+  border: 1px solid #444;
+}
+
+.dark .stats {
+  color: #9f9f9f;
+}
+
+.dark .success-message {
+  color: #5cb85c; /* Green for dark mode */
+}
+
+.dark .error-message {
+  color: #d9534f; /* Red for dark mode */
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  .inventory-item {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .sell-button {
+    margin-top: 0.5rem;
+  }
+}

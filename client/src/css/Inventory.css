@@ -1,0 +1,63 @@
+/* Container for the inventory page */
+.inventory-page {
+  padding: 20px;
+  background-color: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* List of sales history */
+.sales-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sales-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sales-item div {
+  display: flex;
+  flex-direction: column;
+}
+
+.sales-item span {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* Add some spacing between the sales information */
+.sales-item div span:last-child {
+  margin-bottom: 0;
+}
+
+.sales-item span:nth-child(1) {
+  font-weight: bold;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+  .sales-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sales-item div {
+    margin-bottom: 10px;
+  }
+}

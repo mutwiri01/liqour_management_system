@@ -14,7 +14,7 @@ app.use(express.json());
 
 // Use the liquor routes
 app.use("/api/liquors", liquorRoutes);
-
+app.setTimeout(120000);
 // PATCH route to update liquor quantity
 app.patch("/api/liquors/:id", async (req, res) => {
   const { id } = req.params;
@@ -48,7 +48,7 @@ app.patch("/api/liquors/:id", async (req, res) => {
 // GET route to fetch sales
 app.get("/api/sales", async (req, res) => {
   try {
-    const sales = Sale.find().populate("liquor").limit(10).lean();// Populate liquor details
+    const sales =await Sale.find().populate("liquor");// Populate liquor details
     res.status(200).json(sales);
   } catch (error) {
     console.error("Error fetching sales:", error);

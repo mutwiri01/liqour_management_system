@@ -63,7 +63,7 @@ app.get('/', (req, res) => {
 });
 
 // POST route to record a sale
-app.post("/api/sales", async (req, res) => {
+app.post("/sales", async (req, res) => {
   const { liquorId, quantitySold } = req.body;
 
   try {

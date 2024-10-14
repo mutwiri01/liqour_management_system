@@ -14,7 +14,7 @@ app.use(express.json());
 
 // Use the liquor routes
 app.use("/api/liquors", liquorRoutes);
-app.setTimeout(120000);
+
 // PATCH route to update liquor quantity
 app.patch("/api/liquors/:id", async (req, res) => {
   const { id } = req.params;
@@ -48,7 +48,7 @@ app.patch("/api/liquors/:id", async (req, res) => {
 // GET route to fetch sales
 app.get("/api/sales", async (req, res) => {
   try {
-    const sales =await Sale.find().populate("liquor");// Populate liquor details
+    const sales = await Sale.find().populate("liquor"); // Populate liquor details
     res.status(200).json(sales);
   } catch (error) {
     console.error("Error fetching sales:", error);
@@ -61,7 +61,6 @@ app.get("/api/sales", async (req, res) => {
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Welcome to the Resource API 83' });
 });
-
 
 // POST route to record a sale
 app.post("/api/sales", async (req, res) => {
@@ -102,9 +101,11 @@ app.post("/api/sales", async (req, res) => {
 if (process.env.NODE_ENV !== "production") {
   connectDB()
     .then(() => {
-      app.listen(port, () => {
+      const server = app.listen(port, () => {
         console.log(`Server running on port ${port}`);
       });
+      // Set timeout for the server
+      server.setTimeout(120000); // Set timeout to 120 seconds
     })
     .catch((error) => {
       console.log("Failed to connect to MongoDB. Server not started.");

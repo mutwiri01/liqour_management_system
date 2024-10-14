@@ -16,46 +16,46 @@ app.use(express.json());
 app.use("/api/liquors", liquorRoutes);
 
 // PATCH route to update liquor quantity
-app.patch("/api/liquors/:id", async (req, res) => {
+app.patch("/api/liquors/:id", (req, res) => {
   const { id } = req.params;
   const { quantity } = req.body; // Get the quantity from the request body
 
-  try {
-    const liquorToUpdate = await Liquor.findById(id); // Use the Liquor model
+  Liquor.findById(id) // Use the Liquor model
+    .then((liquorToUpdate) => {
+      if (!liquorToUpdate) {
+        return res.status(404).json({ message: "Liquor not found" });
+      }
 
-    if (!liquorToUpdate) {
-      return res.status(404).json({ message: "Liquor not found" });
-    }
+      if (quantity < 0) {
+        return res.status(400).json({ message: "Quantity cannot be negative." }); // Handle negative quantity
+      }
 
-    if (quantity < 0) {
-      return res.status(400).json({ message: "Quantity cannot be negative." }); // Handle negative quantity
-    }
-
-    // Update the quantity
-    liquorToUpdate.quantity = quantity; // Set to the new quantity
-    await liquorToUpdate.save(); // Save the updated liquor
-
-    res.status(200).json(liquorToUpdate); // Return the updated liquor
-  } catch (error) {
-    console.error("Error updating liquor quantity:", error); // Log the error
-    res.status(500).json({
-      message: "Error updating liquor quantity",
-      error: error.message,
+      // Update the quantity
+      liquorToUpdate.quantity = quantity; // Set to the new quantity
+      return liquorToUpdate.save(); // Save the updated liquor
+    })
+    .then((updatedLiquor) => {
+      res.status(200).json(updatedLiquor); // Return the updated liquor
+    })
+    .catch((error) => {
+      console.error("Error updating liquor quantity:", error); // Log the error
+      res.status(500).json({
+        message: "Error updating liquor quantity",
+        error: error.message,
+      });
     });
-  }
 });
 
 // GET route to fetch sales
-app.get("/api/sales", async (req, res) => {
-  try {
-    const sales = await Sale.find().populate("liquor"); // Populate liquor details
-    res.status(200).json(sales);
-  } catch (error) {
-    console.error("Error fetching sales:", error);
-    res
-      .status(500)
-      .json({ message: "Failed to fetch sales", error: error.message });
-  }
+app.get("/api/sales", (req, res) => {
+  Sale.find().populate("liquor") // Populate liquor details
+    .then((sales) => {
+      res.status(200).json(sales);
+    })
+    .catch((error) => {
+      console.error("Error fetching sales:", error);
+      res.status(500).json({ message: "Failed to fetch sales", error: error.message });
+    });
 });
 
 app.get('/', (req, res) => {
@@ -63,38 +63,35 @@ app.get('/', (req, res) => {
 });
 
 // POST route to record a sale
-app.post("/api/sales", async (req, res) => {
+app.post("/api/sales", (req, res) => {
   const { liquorId, quantitySold } = req.body;
 
-  try {
-    // Find the liquor to sell
-    const liquor = await Liquor.findById(liquorId);
+  Liquor.findById(liquorId) // Find the liquor to sell
+    .then((liquor) => {
+      if (!liquor || liquor.quantity < quantitySold) {
+        return res.status(400).json({ message: "Insufficient stock or liquor not found" });
+      }
 
-    if (!liquor || liquor.quantity < quantitySold) {
-      return res
-        .status(400)
-        .json({ message: "Insufficient stock or liquor not found" });
-    }
-
-    // Update liquor quantity
-    liquor.quantity -= quantitySold;
-    await liquor.save();
-
-    // Record the sale
-    const newSale = new Sale({
-      liquor: liquorId,
-      quantitySold,
-      dateSold: new Date(),
+      // Update liquor quantity
+      liquor.quantity -= quantitySold;
+      return liquor.save();
+    })
+    .then((updatedLiquor) => {
+      // Record the sale
+      const newSale = new Sale({
+        liquor: liquorId,
+        quantitySold,
+        dateSold: new Date(),
+      });
+      return newSale.save();
+    })
+    .then((newSale) => {
+      res.status(201).json(newSale);
+    })
+    .catch((error) => {
+      console.error("Error processing sale:", error);
+      res.status(500).json({ message: "Error processing sale", error: error.message });
     });
-    await newSale.save();
-
-    res.status(201).json(newSale);
-  } catch (error) {
-    console.error("Error processing sale:", error);
-    res
-      .status(500)
-      .json({ message: "Error processing sale", error: error.message });
-  }
 });
 
 // Connect to MongoDB and listen on the port for local development only

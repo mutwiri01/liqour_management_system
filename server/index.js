@@ -2,8 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const connectDB = require("./config/db");
 const cors = require("cors");
-const liquorRoutes = require("./routes/liquorRoutes"); // Import routes
-const Liquor = require("./models/Liquor"); // Import the Liquor model
+const liquorRoutes = require("./routes/liquorRoutes"); // Import liquor routes
+const Liquor = require("./models/Liquor"); // Import Liquor model
 const Sale = require("./models/Sale");
 
 const app = express();
@@ -45,6 +45,7 @@ app.patch("/api/liquors/:id", async (req, res) => {
   }
 });
 
+// GET route to fetch sales
 app.get("/api/sales", async (req, res) => {
   try {
     const sales = await Sale.find().populate("liquor"); // Populate liquor details
@@ -56,6 +57,12 @@ app.get("/api/sales", async (req, res) => {
       .json({ message: "Failed to fetch sales", error: error.message });
   }
 });
+
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Welcome to the Resource API 83' });
+});
+
+// POST route to record a sale
 app.post("/api/sales", async (req, res) => {
   const { liquorId, quantitySold } = req.body;
 
@@ -90,12 +97,18 @@ app.post("/api/sales", async (req, res) => {
   }
 });
 
-connectDB()
-  .then(() => {
-    app.listen(port, () => {
-      console.log(`Server running on port ${port}`);
+// Connect to MongoDB and listen on the port for local development only
+if (process.env.NODE_ENV !== "production") {
+  connectDB()
+    .then(() => {
+      app.listen(port, () => {
+        console.log(`Server running on port ${port}`);
+      });
+    })
+    .catch((error) => {
+      console.log("Failed to connect to MongoDB. Server not started.");
     });
-  })
-  .catch((error) => {
-    console.log("Failed to connect to MongoDB. Server not started.");
-  });
+} else {
+  // Export the app for Vercel
+  module.exports = app;
+}
